@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Custom Dialogs</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="module" src="/assets/scripts/purify.js"></script>
+    <script type="module" defer src="/assets/scripts/customdialog.js"></script>
+    <script type="module" defer src="/assets/scripts/customdialog-main.js"></script>
+</head>
+<body>
+   <button id="alert">Alert</button> 
+   <button id="confirm">Confirm</button>
+   <button id="prompt">Prompt</button>
+    <hr/>
+    <dialog>
+    </dialog>
+    <output></output>
+    <template id="alert-template">
+        <form method="dialog">
+            <p>Alert Pressed!</p>
+            <button id="submit">Ok</button>
+        </form>
+    </template>
+    <template id="confirm-template">
+        <form method="dialog">
+            <p>Do you confirm this?</p>
+            <button id="cancel">Cancel</button>
+            <button id="submit">Ok</button>
+        </form>
+    </template>
+    <template id="prompt-template">
+        <form method="dialog">
+            <p>
+            <label for="name">What is your name?</label>
+            <input type="text" id="name" name="name"/> 
+            </p>
+            <button id="cancel">Cancel</button>
+            <button id="submit">Ok</button>
+
+        </form>
+    </template>
+</body>
+</html>

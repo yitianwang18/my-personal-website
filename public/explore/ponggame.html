@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pong | Yitian Wang</title>
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/media/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/media/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/media/favicon-16x16.png">
+    <link rel="manifest" href="/assets/media/site.webmanifest">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Petrona:ital,wght@0,400;0,700;1,400;1,700&family=Poly:ital@0;1&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="/assets/stylesheets/style.css"> 
+    <script defer src="/assets/scripts/ponggame.js"></script>
+</head>
+<body> 
+    <nav id="main-nav">
+        <ul>
+            <li><a href="/#" tabindex="0">Home</a></li>
+            <li><a href="/#about" tabindex="0">About</a></li>
+            <li><a href="/#work" tabindex="0">Work</a></li>
+            <li><a href="/#project" tabindex="0">Project</a></li>
+            <li><a href="/blog/" tabindex="0">Blog</a></li>
+            <li><a href="/explore/" tabindex="0">Explore</a></li>
+            <li><a href="/#contact" tabindex="0">Contact</a></li>
+        </ul>
+    </nav>
+    <header>
+        <h1>Pong Game!</h1>
+    </header>
+    <main>
+        <h2>It's pong game time!</h2>
+        <p> This is a place where I test out some JavaScript Game development, 
+            can't wait to draw something with <code>ctx.beginPath()</code>!
+        </p>
+        <audio controls src="/assets/media/2019-12-11_-_Retro_Platforming_-_David_Fesliyan.mp3">
+            Your browser does not support the <code>audio</code> element.
+        </audio>
+        <canvas width="800" height="600">
+            A pong game for playing with canvas
+        </canvas>        
+    </main>
+    <footer>
+        <p>Yitian Wang</p>
+        <p><a href="mailto:yiw031@ucsd.edu">yiw031@ucsd.edu</a></p>
+        <nav>
+            <a href="https://github.com/yitianwang18">
+                <picture>
+                    <source srcset="/assets/media/github-white.jpg" media="(prefers-color-scheme: dark)">
+                    <img alt="GitHub Profile" src="/assets/media/github-icon.svg">
+                </picture>
+            </a>
+            <a href="https://www.facebook.com/yitian.wang.77">
+                <picture>
+                    <source srcset="/assets/media/f_logo_RGB-White_1024.svg" media="(prefers-color-scheme: dark)">
+                    <img alt="Facebook Profile" src="/assets/media/f_logo_RGB-Grey_1024.svg">
+                </picture>
+            </a>
+        </nav>
+        <a href="#">Top</a>
+    </footer>
+</body>
+</html>

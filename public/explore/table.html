@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Table! | Yitian Wang</title>
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/media/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/media/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/media/favicon-16x16.png">
+    <link rel="manifest" href="/assets/media/site.webmanifest">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Petrona:ital,wght@0,400;0,700;1,400;1,700&family=Poly:ital@0;1&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="/assets/stylesheets/style.css">
+
+    <style>
+        aside {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <nav id="main-nav">
+        <ul>
+            <li><a href="/#" tabindex="0">Home</a></li>
+            <li><a href="/#about" tabindex="0">About</a></li>
+            <li><a href="/#work" tabindex="0">Work</a></li>
+            <li><a href="/#project" tabindex="0">Project</a></li>
+            <li><a href="/blog/" tabindex="0">Blog</a></li>
+            <li><a href="/explore/" tabindex="0">Explore</a></li>
+            <li><a href="/#contact" tabindex="0">Contact</a></li>
+        </ul>
+    </nav>
+    <header>
+        <h1>Table!</h1>
+    </header>
+    <main>
+        <section>
+            <h2>Why Table?</h2>
+            <p>
+                Table may seems easy, but is actually quite hard to get right.
+                Table is useful for providing a rigid structure that help users
+                visualize the information. However, table is not just about visuals.
+                Semantics is crucial, giving meanings to the group of content matters
+                especially for visual-impaired users.
+            </p>
+        </section>
+        <section>
+            <h2> The following is a table that labels every type of MBTI personalities. </h2>
+            <table>
+                <caption>MBTI</caption>
+                <colgroup>
+                    <col>
+                    <col>
+                    <col span="2" class="sensing">
+                    <col span="2" class="intuition">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <th scope="colgroup" colspan="2">Sensing</th>
+                        <th scope="colgroup" colspan="2">Intuition</th>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <th scope="col">Thinking</th>
+                        <th scope="col">Feeling</th>
+                        <th scope="col">Feeling</th>
+                        <th scope="col">Thinking</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="rowgroup" rowspan="2">Introversion</th>
+                        <th scope="row">Judgment</th>
+                        <td>ISTJ</td>
+                        <td>ISFJ</td>
+                        <td>INFJ</td>
+                        <td>INTJ</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Perception</th>
+                        <td>ISTP</td>
+                        <td>ISFP</td>
+                        <td>INFP</td>
+                        <td>INTP</td>
+                    </tr>
+                    <tr>
+                        <th scope="rowgroup" rowspan="2">Extroversion</th>
+                        <th scope="row">Perception</th>
+                        <td>ESTP</td>
+                        <td>ESFP</td>
+                        <td>ENFP</td>
+                        <td>ENTP</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Judgment</th>
+                        <td>ESTJ</td>
+                        <td>ESFJ</td>
+                        <td>ENFJ</td>
+                        <td>ENTJ</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        <section>
+            <h2>Here is the html for the MBTI table</h2>
+            <pre>
+&lt;table&gt;
+&lt;caption&gt;MBTI&lt;/caption&gt;
+&lt;colgroup&gt;
+    &lt;col&gt;
+    &lt;col span="2" class="sensing"&gt;
+    &lt;col span="2" class="intuition"&gt;
+&lt;/colgroup&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;td&gt;&lt;/td&gt;
+            &lt;th scope="colgroup" colspan="2"&gt;Sensing&lt;/th&gt;
+            &lt;th scope="colgroup" colspan="2"&gt;Intuition&lt;/th&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;&lt;/td&gt;
+            &lt;th scope="col"&gt;Thinking&lt;/th&gt;
+            &lt;th scope="col"&gt;Feeling&lt;/th&gt;
+            &lt;th scope="col"&gt;Feeling&lt;/th&gt;
+            &lt;th scope="col"&gt;Thinking&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+        &lt;tr&gt;
+            &lt;th scope="rowgroup" rowspan="2"&gt;Introversion&lt;/th&gt;
+            &lt;th scope="row"&gt;Judgment&lt;/th&gt;
+            &lt;td&gt;ISTJ&lt;/td&gt;
+            &lt;td&gt;ISFJ&lt;/td&gt;
+            &lt;td&gt;INFJ&lt;/td&gt;
+            &lt;td&gt;INTJ&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;th scope="row"&gt;Perception&lt;/th&gt;
+            &lt;td&gt;ISTP&lt;/td&gt;
+            &lt;td&gt;ISFP&lt;/td&gt;
+            &lt;td&gt;INFP&lt;/td&gt;
+            &lt;td&gt;INTP&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;th scope="rowgroup" rowspan="2"&gt;Extroversion&lt;/th&gt;
+            &lt;th scope="row"&gt;Perception&lt;/th&gt;
+            &lt;td&gt;ESTP&lt;/td&gt;
+            &lt;td&gt;ESFP&lt;/td&gt;
+            &lt;td&gt;ENFP&lt;/td&gt;
+            &lt;td&gt;ENTP&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;th scope="row"&gt;Judgment&lt;/th&gt;
+            &lt;td&gt;ESTJ&lt;/td&gt;
+            &lt;td&gt;ESFJ&lt;/td&gt;
+            &lt;td&gt;ENFJ&lt;/td&gt;
+            &lt;td&gt;ENTJ&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;          
+</pre>
+        </section>
+    </main>
+    <aside>Side note: My MBTI is INTP :)</aside>
+    <footer>
+        <p>Yitian Wang</p>
+        <p><a href="mailto:yiw031@ucsd.edu">yiw031@ucsd.edu</a></p>
+        <nav>
+            <a href="https://github.com/yitianwang18">
+                <picture>
+                    <source srcset="/assets/media/github-white.jpg" media="(prefers-color-scheme: dark)">
+                    <img alt="GitHub Profile" src="/assets/media/github-icon.svg">
+                </picture>
+            </a>
+            <a href="https://www.facebook.com/yitian.wang.77">
+                <picture>
+                    <source srcset="/assets/media/f_logo_RGB-White_1024.svg" media="(prefers-color-scheme: dark)">
+                    <img alt="Facebook Profile" src="/assets/media/f_logo_RGB-Grey_1024.svg">
+                </picture>
+            </a>
+        </nav>
+        <a href="#">Top</a>
+    </footer>
+</body>
+
+</html>

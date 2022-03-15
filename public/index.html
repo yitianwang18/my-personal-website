@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Yitian Wang</title>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/media/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/media/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/media/favicon-16x16.png">
+    <link rel="manifest" href="/assets/media/site.webmanifest">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Petrona:ital,wght@0,400;0,700;1,400;1,700&family=Poly:ital@0;1&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="/assets/stylesheets/style.css">
+    <style>
+
+        #home picture {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+        }
+
+        #home picture img {
+            border-radius: 50%;
+        }
+
+        section img {
+            max-width: 300px;
+        }
+        @media (max-width: 480px) {
+            section img {
+                max-width: 200px;
+            }
+        }
+        .center-container {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+        }
+
+    </style>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PJJ0MW7KG9"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-PJJ0MW7KG9');
+    </script>
+</head>
+<body>
+    <nav id="main-nav">
+        <ul>
+            <li><a href="/#" tabindex="0">Home</a></li>
+            <li><a href="/#about" tabindex="0">About</a></li>
+            <li><a href="/#work" tabindex="0">Work</a></li>
+            <li><a href="/#project" tabindex="0">Project</a></li>
+            <li><a href="/blog/" tabindex="0">Blog</a></li>
+            <li><a href="/explore/" tabindex="0">Explore</a></li>
+            <li><a href="/#contact" tabindex="0">Contact</a></li>
+        </ul>
+    </nav>
+   <header id="home">
+      <h1 tabindex="0">Hi! This is Yitian, a software engineer</h1> 
+      <picture>
+        <source srcset="/assets/media/head-240x240.jpg" media="(min-width: 480px)">
+        <img src="/assets/media/head-120x120.jpg" alt="Yitian Wang with a smile face in a sunny day">
+      </picture>
+   </header>
+   <main>
+        <section id="about">
+            <hr/>
+            <h2 tabindex="0">About</h2>
+            <div class="center-container">
+                <p> Currently, I am a 4th-year undergraduate student studying in 
+                    computer engineerng at the University of California, San Diego.
+                </p>
+            </div>
+        </section>
+        <section id="work">
+            <hr/>
+            <h2 tabindex="0">Work</h2>
+            <div class="center-container">
+                <div class="intern-cards">
+                    <h3>Dell Technologies</h3>
+                    <p>July 2021 - September 2021</p>
+                    <p> I was an intern in the <em>Runtime Operation Team</em> 
+                        at <strong>Dell Technologies</strong> in <i>Shanghai, China</i>.
+                    </p>
+                    <p>I worked on automated testing for <span>VxRail Hyperconverged Infrastructure</span>.</p>
+                    <p>I also contributed to the <b>Runtime Operation Team's</b> onboarding documentation.</p>
+                </div>
+            </div>
+        </section>
+        <section id="project">
+            <hr/>
+            <h2 tabindex="0">Project</h2>
+            <div class="center-container">
+                <div class="project-cards">
+                    <a href="/project/projectsunflower.html">
+                    <figure>
+                        <img src="/assets/media/projectsunflower-logo.jpg" alt="Project Sunflower"/>
+                        <figcaption hidden>Project Sunflower</figcaption>
+                    </figure>
+                    </a>
+                </div>
+                <div class="project-cards" tabindex="0">
+                    <a href="/project/tritonrobotics.html">
+                    <figure>
+                        <img id="tr-img" src="/assets/media/tr-letter-logo-1.png" alt="Triton Robotics"/>
+                        <figcaption hidden>Triton Robotics</figcaption>
+                    </figure>
+                    </a>
+                </div>
+            </div>
+        </section>
+        <section id="contact">
+            <hr/>
+            <h2 tabindex="0">Contact</h2>
+            <div class="center-container">
+                <form>
+                    <fieldset>
+                    <legend>Want to contact me? <a href="mailto:yiw031@ucsd.edu">Email</a> me or fill out the form below.</legend>
+                    <label for="name">Your name is </label>
+                    <input type="text" id="name" name="name">
+                    <br/>
+                    <label for="profession">Your profession is </label>
+                    <select id="profession">
+                        <option disabled selected value> -- select an option -- </option>
+                        <optgroup label="academy">
+                            <option value="school official">school official</option>
+                            <option value="school counselor">school counselor</option>
+                            <option value="professor">professor</option>
+                            <option value="alumni">alumni</option>
+                        </optgroup>                
+                        <optgroup label="industry">
+                            <option value="recruiter">recruiter</option>
+                            <option value="engineer">engineer</option>
+                            <option value="manager">manager</option>
+                        </optgroup>                
+                        <option value="other">Other, please tell me below</option>
+                    </select>
+                    <br/>
+                    <div>
+                        <label for="other-profession">Other: </label>
+                        <input type="text" name="profession" id="other-profession" />
+                        <br/>
+                    </div>
+                    <label for="link">How do you hear about me?</label>
+                    <input list="link-sources" type="text" id="link" name="link"/>
+                    <datalist id="link-sources">
+                        <option>LinkedIn</option>
+                        <option>Handshake</option>
+                        <option>GitHub</option>
+                        <option>Facebook</option>
+                        <option>My resume</option>
+                    </datalist>
+                    <br/>
+                    <label for="email">Your email address: </label>
+                    <input type="email" name="email" id="email"/>
+                    <br/>
+                    <label for="message">Your message: </label>
+                    <br/>
+                    <textarea id="message" name="message"></textarea>
+                    <br/>
+                    <button type="submit" name="submit" id="submit">Submit</button>
+                    </fieldset>
+                </form>
+            </div>
+        </section>
+   </main>
+    <footer>
+        <p>Yitian Wang</p>
+        <p><a href="mailto:yiw031@ucsd.edu">yiw031@ucsd.edu</a></p>
+        <nav>
+            <a href="https://github.com/yitianwang18">
+                <picture>
+                    <source srcset="/assets/media/github-white.jpg" media="(prefers-color-scheme: dark)">
+                    <img alt="GitHub Profile" src="/assets/media/github-icon.svg">
+                </picture>
+            </a>
+            <a href="https://www.facebook.com/yitian.wang.77">
+                <picture>
+                    <source srcset="/assets/media/f_logo_RGB-White_1024.svg" media="(prefers-color-scheme: dark)">
+                    <img alt="Facebook Profile" src="/assets/media/f_logo_RGB-Grey_1024.svg">
+                </picture>
+            </a>
+        </nav>
+        <a href="#">Top</a>
+    </footer>
+</body>
+</html>

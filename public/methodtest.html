@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Method test</title>
+</head>
+<body>
+   <form id="myForm">
+       <label for="id">Record ID: </label>
+       <input type="number" name="id" id="id">
+       <br/>
+       <label for="article_name">Article Name:</label>
+       <input type="text" name="article_name" id="article_name">
+       <br/>
+       <label for="article_body">Article Body:</label>
+       <textarea name="article_body" id="article_body" style="width: 80ch; height: 40rem;"></textarea>
+       <input type="hidden" name="date">
+   </form> 
+   <br/>
+   <button id="postBtn">Post</button>
+   <button id="getBtn">Get</button>
+   <button id="putBtn">Put</button>
+   <button id="deleteBtn">Delete</button>
+   <hr/>
+   <output id="response" style="white-space: pre"></output>
+   <script>
+        function getForm(){
+            const formEl = document.getElementById('myForm');
+            let formData = new FormData(formEl);
+            formData.set('date', (new Date()).toString());
+            return formData;
+        }
+
+        function splitID(formData){
+            let id = formData.get('id');
+            formData.delete('id');
+            return [id, formData];
+        }
+        
+        function createPostRequest(endpoint, formData){
+            let myHeaders = new Headers();
+            return new Request(endpoint, {
+                method: 'POST',
+                headers: myHeaders,
+                body: formData
+            });
+        }
+
+        function createGetRequest(endpoint, queryString){
+            let url = queryString ? `${endpoint}${queryString}` : endpoint;
+            return new Request(url, {
+                method: 'GET'
+            });
+        }
+
+        function createPutRequest(endpoint, queryString, formData){
+            let url = queryString ? `${endpoint}${queryString}` : endpoint;
+            let myHeaders = new Headers();
+            return new Request(url, {
+                method: 'PUT',
+                headers: myHeaders,
+                body: formData
+            });
+        }
+
+        function createDeleteRequest(endpoint, queryString){
+            let url = queryString ? `${endpoint}${queryString}` : endpoint;
+            return new Request(url, {
+                method: 'DELETE'
+            });
+        }
+
+        function response(data){
+            const output = document.getElementById('response');
+            output.value = JSON.stringify(data, null, 4);
+        }
+
+        function catchError(error){
+            console.error(error);
+        }
+
+        function makeRequest(request, funcRes, funcErr){
+            fetch(request)
+            .then((response)=>response.json())
+            .then(funcRes)
+            .catch(funcErr);
+        }
+
+        document.getElementById('postBtn').addEventListener('click', ()=>{
+            formData = getForm();
+            req = createPostRequest('https://httpbin.org/post', formData);
+            makeRequest(req, response, catchError);
+        });
+
+        document.getElementById('getBtn').addEventListener('click', ()=>{
+            formData = getForm();
+            [id, data] = splitID(formData);
+            queryString = `?id=${id}`;
+            req = createGetRequest('https://httpbin.org/get', queryString);
+            makeRequest(req, response, catchError);
+        });
+
+        document.getElementById('putBtn').addEventListener('click', ()=>{
+            formData = getForm();
+            [id, data] = splitID(formData);
+            queryString = `?id=${id}`;
+            req = createPutRequest('https://httpbin.org/put', queryString, data);
+            makeRequest(req, response, catchError);
+        });
+
+        document.getElementById('deleteBtn').addEventListener('click', ()=>{
+            formData = getForm();
+            [id, data] = splitID(formData);
+            queryString = `?id=${id}`;
+            req = createDeleteRequest('https://httpbin.org/delete', queryString);
+            makeRequest(req, response, catchError);
+        });
+
+   </script>
+</body>
+</html>
