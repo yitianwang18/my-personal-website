@@ -28,15 +28,16 @@ function updateBlogFields(clone, valObj){
     const dateString = dateToString(new Date(valObj.date.seconds*1000));
     valObj.date = dateString;
 
-    clone.dataset.title = valObj.title;
-    clone.dataset.author = valObj.author;
-    clone.dataset.date = valObj.date;
-    clone.dataset.content = valObj.content;
 
-    clone.children[0].innerText = sanitize`${valObj.title}`;
-    clone.children[1].innerText = sanitize`${valObj.author}`;
-    clone.children[2].innerText = sanitize`${valObj.date}`;
-    clone.children[3].innerHTML = sanitize`${valObj.content}`;
+    clone.dataset.title = sanitize`${valObj.title}`;
+    clone.dataset.author = sanitize`${valObj.author}`;
+    clone.dataset.date = sanitize`${valObj.date}`;
+    clone.dataset.content = sanitize`${valObj.content}`;
+
+    clone.children[0].innerText = clone.dataset.title;
+    clone.children[1].innerText = clone.dataset.author;
+    clone.children[2].innerText = clone.dataset.date;
+    clone.children[3].innerHTML = clone.dataset.content;
 }
 
 async function deleteHandler(value, event, submit){
