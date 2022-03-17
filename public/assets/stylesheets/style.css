@@ -1,9 +1,15 @@
+@import "font.css";
+
 :root{ 
     box-sizing: border-box; /* sizing include border */
     scroll-behavior: smooth;
     font-family: 'Petrona', 'Poly', Georgia, serif;
-    /* scrollbar-gutter: stable both-edges; */
     scroll-padding-top: 3.2rem;
+    font-size: 16px;
+}
+
+:root > * {
+    box-sizing: content-box;
 }
 
 @media (prefers-color-scheme: dark){
@@ -40,7 +46,6 @@ body > *, a {
 }
 
 #main-nav {
-    position: sticky;
     margin-top: 0;
     top: 0;
     left: 0;
@@ -48,24 +53,20 @@ body > *, a {
     margin-right: 0;
     width: 100%;
     background-color: var(--nav-color);
-    --label-margin: 1ch;
-    font-weight: bold;
     text-align: center;
+    --label-margin: 0.1ch;
+    position: -webkit-sticky;
+    position: sticky;
+    z-index: 10;
 }
 
-@media (max-width: 640px) {
-
-    #main-nav {
-        --label-margin: 0.5ch;
-    }
+#main-nav a {
+    --border-width: 3px;
+    text-decoration: none;
+    padding-top: 1rem;
+    font-weight: bold;
+    font-size: 0.8rem;
 }
-
-@media (max-width: 480px) {
-    #main-nav {
-        --label-margin: 0.1ch;
-    }
-}
-
 
 #main-nav ul {
     margin-top: 0;
@@ -79,35 +80,21 @@ body > *, a {
 
 #main-nav li {
     display: inline-block;
-    margin-left: var(--label-margin);
-    margin-right: var(--label-margin);
-    transition: 0.2s;
+    padding-left: var(--label-margin);
+    padding-right: var(--label-margin);
 }
 
-#main-nav a[href="/blog/"]::after,
-#main-nav a[href="/explore/"]::after{
-    content: "⧉";
-    /* content: "↗"; */
-}
-
-#main-nav a {
-    --border-width: 3px;
-    text-decoration: none;
-    padding-top: 1rem;
-    font-size: 0.8rem;
-    transition-duration: 0.5s;
-}
-
-@media (min-width: 400px){
-    #main-nav a {
-        font-size: 1rem;
+@media (min-width: 480px) {
+    #main-nav {
+        --label-margin: 0.5ch;
     }
 }
 
-@media (min-width: 370px){
-    #main-nav a {
-        font-size: 0.9rem;
-    } 
+@media (min-width: 640px) {
+
+    #main-nav {
+        --label-margin: 1ch;
+    }
 }
 
 h1, h2, h3 {

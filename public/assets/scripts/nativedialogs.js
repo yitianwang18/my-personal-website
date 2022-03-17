@@ -5,7 +5,7 @@ let saferPromptButton = document.getElementById('safer-prompt');
 
 /**
  * 
- * @param {...string} strings 
+ * @param {string[]} strings 
  * @param  {...string} values 
  * @returns {string}
  */

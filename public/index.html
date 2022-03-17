@@ -7,14 +7,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <script type="module" defer src="/assets/scripts/firebaseConfig.js"></script>
     <link rel="apple-touch-icon" sizes="180x180" href="/assets/media/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/assets/media/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/assets/media/favicon-16x16.png">
     <link rel="manifest" href="/assets/media/site.webmanifest">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Petrona:ital,wght@0,400;0,700;1,400;1,700&family=Poly:ital@0;1&display=swap" rel="stylesheet">
-
     <link rel="stylesheet" href="/assets/stylesheets/style.css">
     <style>
 
@@ -26,14 +23,23 @@
 
         #home picture img {
             border-radius: 50%;
+            width: 120px;
+            height: 120px;
+        }
+        
+        @media (min-width: 480px) { 
+            #home picture img {
+               width: 240px; 
+               height: 240px;
+            }
         }
 
         section img {
-            max-width: 300px;
+            width: 300px;
         }
         @media (max-width: 480px) {
             section img {
-                max-width: 200px;
+                width: 200px;
             }
         }
         .center-container {
@@ -44,16 +50,12 @@
             align-items: center;
         }
 
-    </style>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PJJ0MW7KG9"></script>
-    <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
+        footer img {
+            width: 36px;
+            height: 36px;
+        }
 
-    gtag('config', 'G-PJJ0MW7KG9');
-    </script>
+    </style>
 </head>
 <body>
     <nav id="main-nav">
@@ -62,15 +64,15 @@
             <li><a href="/#about" tabindex="0">About</a></li>
             <li><a href="/#work" tabindex="0">Work</a></li>
             <li><a href="/#project" tabindex="0">Project</a></li>
-            <li><a href="/blog/" tabindex="0">Blog</a></li>
-            <li><a href="/explore/" tabindex="0">Explore</a></li>
+            <li><a href="/blog/" tabindex="0">Blog&#128279;</a></li>
+            <li><a href="/explore/" tabindex="0">Explore&#128279;</a></li>
             <li><a href="/#contact" tabindex="0">Contact</a></li>
         </ul>
     </nav>
    <header id="home">
       <h1 tabindex="0">Hi! This is Yitian, a software engineer</h1> 
       <picture>
-        <source srcset="/assets/media/head-240x240.jpg" media="(min-width: 480px)">
+        <source srcset="/assets/media/head-240x240.jpg 240w" media="(min-width: 480px)">
         <img src="/assets/media/head-120x120.jpg" alt="Yitian Wang with a smile face in a sunny day">
       </picture>
    </header>

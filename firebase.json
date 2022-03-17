@@ -1,0 +1,11 @@
+{
+  "hosting": {
+    "site": "cse134-hw5-yitian",
+    "public": "public",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}

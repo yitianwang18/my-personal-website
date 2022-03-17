@@ -1,17 +1,21 @@
+import { getBlogAll, postBlog, editBlog, deleteBlog } from './firebaseCrud.js';
 import {createConfirm, createPrompt} from '/assets/scripts/customdialog.js';
+import { auth, signin, signout, monitorUserState } from '/assets/scripts/firebaseAuth.js';
 
-const main = document.querySelector('main');
-let today = new Date();
-today.setMinutes(today.getMinutes() - today.getTimezoneOffset());
-let todayString = today.toJSON().slice(0,10);
 
-const attrList = ['title', 'date', 'summary'];
+function dateToString(date){
+    date.setMinutes(date.getMinutes() - date.getTimezoneOffset());
+    return date.toJSON().slice(0,10);
+}
+
+const attrList = ['title', 'content'];
 
 const initValues = {
     'title': 'Some post',
-    'date': todayString,
-    'summary': 'A short summary'
+    'content': 'A short summary'
 }
+
+let postControlVisible = false;
 
 function sanitize(strings, ...values) {
     const dirty = strings.reduce((prev, next, i) => {
@@ -20,78 +24,165 @@ function sanitize(strings, ...values) {
     return DOMPurify.sanitize(dirty);
 }
 
-function deleteHandler(value, event, submit){
+function updateBlogFields(clone, valObj){
+    const dateString = dateToString(new Date(valObj.date.seconds*1000));
+    valObj.date = dateString;
+
+    clone.dataset.title = valObj.title;
+    clone.dataset.author = valObj.author;
+    clone.dataset.date = valObj.date;
+    clone.dataset.content = valObj.content;
+
+    clone.children[0].innerText = sanitize`${valObj.title}`;
+    clone.children[1].innerText = sanitize`${valObj.author}`;
+    clone.children[2].innerText = sanitize`${valObj.date}`;
+    clone.children[3].innerHTML = sanitize`${valObj.content}`;
+}
+
+async function deleteHandler(value, event, submit){
     if (submit) {
-        let pid = event.target.parentElement.pid;
-        let posts = JSON.parse(localStorage.getItem('posts'));
-        posts.splice(pid,1);
-        localStorage.setItem('posts', JSON.stringify(posts));
-        event.target.parentElement.remove();
+        try {
+            let id = event.target.parentElement.id;
+
+            // delete data from server
+            await deleteBlog(id);
+            // end delete data from server
+            event.target.parentElement.remove();
+        }
+        catch (e) {
+            console.error("Error in delete blog", e);
+        }
+ 
     }
 }
 
-function editHandler(value, event, submit){
+async function editHandler(value, event, submit){
     if (!submit){ // canceled
         return;
     }
-    let pid = event.target.parentElement.pid;
-    let posts = JSON.parse(localStorage.getItem('posts'));
-    let clone = event.target.parentElement;
-    let valObj = JSON.parse(value);
-    posts[pid] = valObj;
-    localStorage.setItem('posts', JSON.stringify(posts));
-    clone.children[0].innerText = sanitize`${valObj.title}`;
-    clone.children[1].innerText = sanitize`${valObj.date}`;
-    clone.children[2].innerText = sanitize`${valObj.summary}`;
+    try {
+        let clone = event.target.parentElement;
+        let valObj = JSON.parse(value);
+
+        let id = event.target.parentElement.id;
+
+        // put updates to server
+        const [docRef, fbData] = await editBlog(valObj, id, auth.currentUser.email);
+
+        // end put updates to server
+        updateBlogFields(clone, fbData);  
+
+    } catch (e) {
+        console.error("Error in edit blog", e);
+    }
+
 }
 
 function editInitValueHandler(event){
-    let pid = event.target.parentElement.pid;
-    let posts = JSON.parse(localStorage.getItem('posts'));
-    return posts[pid];
+    let data = event.target.parentElement.dataset;
+    return data;
 }
 
-function createPost(valObj, id){
+function createPost(fbData, id, parent){
     const onDelete = createConfirm('confirm-delete', deleteHandler);
     const onEdit = createPrompt('prompt-edit', attrList, initValues, editHandler, null, editInitValueHandler);
 
     const postTemplate = document.getElementById('post-template');
     const clone = postTemplate.content.firstElementChild.cloneNode(true);
-    clone.pid = id;
-
-    clone.children[0].innerText = sanitize`${valObj.title}`;
-    clone.children[1].innerText = sanitize`${valObj.date}`;
-    clone.children[2].innerText = sanitize`${valObj.summary}`;
-    clone.children[3].addEventListener('click', onEdit);
-    clone.children[4].addEventListener('click', onDelete);
-    main.appendChild(clone);
+    clone.id = id;
+    updateBlogFields(clone, fbData); 
+    clone.children[4].addEventListener('click', onEdit);
+    clone.children[5].addEventListener('click', onDelete);
+    parent.appendChild(clone);
 }
 
-function createHandler(value, event, submit){
+async function createHandler(value, event, submit){
     if (!submit){ // nothing created
         return;
     }
+    try {
+        let valObj = JSON.parse(value);
 
-    let valObj = JSON.parse(value);
-    let posts = JSON.parse(localStorage.getItem('posts'));
-    let id = 0;
-    if (Array.isArray(posts)){
-        id = posts.length;
-    } else {
-        posts = [];
-    }
-    createPost(valObj, id);
-    posts.push(valObj);
-    localStorage.setItem('posts', JSON.stringify(posts));
-}
-
-let posts = JSON.parse(localStorage.getItem('posts'));
-if (Array.isArray(posts)){
-    for (let i = 0; i < posts.length; i++){
-        createPost(posts[i], i);
+        // posting post object to server
+        const [docRef, fbData] = await postBlog(valObj, auth.currentUser.email);
+        const id = docRef.id;
+        // end posting to server
+        const main = document.querySelector('main');
+        createPost(fbData, id, main);
+        togglePostOptions(postControlVisible);
+    } catch (e) {
+        console.error("Error posting blog", e);
     }
 }
 
 let createBtn = document.getElementById('create');
-const onCreate = createPrompt('prompt-create', attrList, initValues, createHandler);
+const onCreate = createPrompt('prompt-edit', attrList, initValues, createHandler);
 createBtn.addEventListener('click', onCreate);
+
+function getForm(formId){
+    const formEl = document.getElementById(formId);
+    let formData = new FormData(formEl);
+    return formData;
+}
+
+const signinBtn = document.getElementById('sign-in');
+signinBtn.addEventListener('click', () =>{
+    
+    let formData = getForm('signin-form');
+    let email = formData.get('email');
+    let password = formData.get('password');
+    signin(email, password);
+});
+
+const signOutBtn = document.getElementById('sign-out');
+signOutBtn.addEventListener('click', () => {
+    signout();
+});
+
+
+function readHandler(id, data){
+    const main = document.querySelector('main');
+    createPost(data, id, main);
+    togglePostOptions(postControlVisible);
+}
+
+function toggleSignInOptions(bool){
+    const signInElements = document.getElementsByClassName('sign-in');
+    for (const el of signInElements){
+        el.hidden = !bool;
+    }
+    const signOutElements = document.getElementsByClassName('sign-out');
+    for (const elSO of signOutElements){
+        elSO.hidden = bool;
+    }
+}
+
+function togglePostOptions(bool){
+    const postControls = document.getElementsByClassName('post-control');
+    for (const el of postControls){
+        el.hidden = !bool;
+    }
+    postControlVisible = bool;
+}
+
+monitorUserState((user) => {
+  if (user) {
+    // User is signed in, see docs for a list of available properties
+    // https://firebase.google.com/docs/reference/js/firebase.User
+    const uid = user.uid;
+    toggleSignInOptions(false);
+    togglePostOptions(true);
+    const userField = document.getElementById('current-user');
+    userField.textContent = user.email;
+    // ...
+  } else {
+    // User is signed out
+    toggleSignInOptions(true);
+    togglePostOptions(false);
+    const userField = document.getElementById('current-user');
+    userField.textContent = "";
+    // ...
+  }
+});
+
+getBlogAll(readHandler);

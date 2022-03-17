@@ -2,27 +2,69 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <title>Blog | Yitian Wang</title>
+
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog | Yitian Wang</title>
+     
+    <script type="module" src="/assets/scripts/purify.js"></script>
+    <script type="module" defer src="/assets/scripts/firebaseConfig.js"></script>
+    <script type="module" defer src="/assets/scripts/customdialog.js"></script>
+    <script type="module" defer src="/assets/scripts/blog.js"></script>
 
     <link rel="apple-touch-icon" sizes="180x180" href="/assets/media/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/assets/media/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/assets/media/favicon-16x16.png">
     <link rel="manifest" href="/assets/media/site.webmanifest">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Petrona:ital,wght@0,400;0,700;1,400;1,700&family=Poly:ital@0;1&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/assets/stylesheets/style.css">
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PJJ0MW7KG9"></script>
-    <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
+    <style>
+        button {
+            background-color: var(--background-color);
+            border-radius: 3px;
+            border: 1px solid var(--nav-color);
+            box-shadow: rgba(255, 255, 255, .7) 0 1px 0 0 inset;
+            box-sizing: border-box;
+            color: var(--text-color);
+            cursor: pointer;
+            margin: 0;
+            outline: none;
+            padding: 8px .8em;
+            position: relative;
+            text-align: center;
+            text-decoration: none;
+            user-select: none;
+            vertical-align: baseline;
+            white-space: nowrap;
+        }
 
-    gtag('config', 'G-PJJ0MW7KG9');
-    </script>
+        button:hover,
+        button:focus {
+            background-color: #b3d3ea;
+            color: #2c5777;
+        }
+
+        button:focus {
+            box-shadow: 0 0 0 4px rgba(0, 149, 255, .15);
+        }
+
+        button:active {
+            background-color: #a0c7e4;
+            box-shadow: none;
+            color: #2c5777;
+        }
+        .dialog-form {
+            color:black;
+        }
+
+        aside {
+            text-align: center;
+        }
+
+        .blog-post p {
+            text-align: left;
+        }
+
+    </style>
 </head>
 <body>
     <nav id="main-nav">
@@ -31,44 +73,32 @@
             <li><a href="/#about" tabindex="0">About</a></li>
             <li><a href="/#work" tabindex="0">Work</a></li>
             <li><a href="/#project" tabindex="0">Project</a></li>
-            <li><a href="/blog/" tabindex="0">Blog</a></li>
-            <li><a href="/explore/" tabindex="0">Explore</a></li>
+            <li><a href="/blog/" tabindex="0">Blog&#128279;</a></li>
+            <li><a href="/explore/" tabindex="0">Explore&#128279;</a></li>
             <li><a href="/#contact" tabindex="0">Contact</a></li>
         </ul>
     </nav>
     <header>
         <h1>Blog</h1>
     </header>
+    <aside>
+        <button hidden class="post-control" id="create" style="margin-left: 5ch; margin-right: 5ch;">Create Post</button> 
+        <div class="user-control">
+            <form class="sign-in" method="post" id="signin-form">
+                <label for="email">Email: </label>
+                <input type="email" name="email" id="email">
+                <br/>
+                <label for="password">Password: </label>
+                <input type="password" name="password" id="password">
+            </form>
+            <button class="sign-in" id="sign-in">Sign in</button>
+            <p class="sign-out" hidden>Current User: <span id="current-user"></span></p>
+            <button class="sign-out" id="sign-out" hidden>Sign out</button>
+        </div>
+    </aside>
     <main>
-        <section>
-            <h2>The reason for blogging</h2>
-            <p>
-                I think writing blog posts is a great habbit as it documents my progress 
-                and my development both in my skills and in my character.
-            </p>
-            <p>
-                This habbit also allows me to share my knowledge to others. 
-                Helping others bring me joy and excitement about the world.
-            </p>
-        </section>
-        <hr/>
-        <section>
-        <h2>Checkout my blog down below!</h2>
-        <nav>
-            <ol>
-                <li>
-                    <details>
-                        <summary>Making of this portfolio</summary>
-                        <p> details about my portfolio, <strong>what</strong> it is for, 
-                            <strong>why</strong> it is made, <strong>how</strong> it is made.
-                            You can check out this blog <a href="./makingportfolio.html">here</a>
-                        </p>
-                    </details>
-                </li>
-            </ol>
-        </nav>
-        </section>
     </main>
+    <hr/>
     <footer>
         <p>Yitian Wang</p>
         <p><a href="mailto:yiw031@ucsd.edu">yiw031@ucsd.edu</a></p>
@@ -88,5 +118,39 @@
         </nav>
         <a href="#">Top</a>
     </footer>
+    <dialog>
+    </dialog>
+
+    <template id="post-template">
+        <section class="blog-post" style="text-align: center; margin: 1ch; border: 2px solid black;">
+            <h2></h2>
+            <h3></h3>
+            <date></date>
+            <p style="max-width: 75ch; margin-left: 5ch; margin-right: 5ch;"></p>
+            <img class="post-control" hidden src="/assets/media/icons8-edit-24.png" alt="Edit"/></button>
+            <img class="post-control" hidden src="/assets/media/icons8-delete-24.png" alt="Delete"/></button>
+        </section>
+    </template>
+
+    <template id="confirm-delete">
+        <form method="dialog" class="dialog-form">
+            <p>Do you want to delete this post?</p>
+            <button id="cancel">Cancel</button>
+            <button id="submit">Yes</button>
+        </form>
+    </template>
+    <template id="prompt-edit">
+        <form method="dialog" class="dialog-form">
+            <p>
+            <label for="title">Post Title: </label>
+            <input type="text" id="title" name="title"/> 
+            <br/>
+            <label for="content" style="display: block;">Post Content: </label>
+            <textarea style="width: 80ch; height: 30ch;" type="text" id="content" name="content"></textarea>
+            </p>
+            <button id="cancel">Cancel</button>
+            <button id="submit">Ok</button>
+        </form>
+    </template>
 </body>
 </html>
