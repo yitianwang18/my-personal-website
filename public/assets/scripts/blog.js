@@ -29,15 +29,10 @@ function updateBlogFields(clone, valObj){
     valObj.date = dateString;
 
 
-    clone.dataset.title = sanitize`${valObj.title}`;
-    clone.dataset.author = sanitize`${valObj.author}`;
-    clone.dataset.date = sanitize`${valObj.date}`;
-    clone.dataset.content = sanitize`${valObj.content}`;
-
-    clone.children[0].innerText = clone.dataset.title;
-    clone.children[1].innerText = clone.dataset.author;
-    clone.children[2].innerText = clone.dataset.date;
-    clone.children[3].innerHTML = clone.dataset.content;
+    clone.children[0].textContent = sanitize`${valObj.title}`;
+    clone.children[1].textContent = sanitize`${valObj.author}`;
+    clone.children[2].textContent = sanitize`${valObj.date}`;
+    clone.children[3].innerHTML = sanitize`${valObj.content}`;
 }
 
 async function deleteHandler(value, event, submit){
@@ -80,7 +75,14 @@ async function editHandler(value, event, submit){
 }
 
 function editInitValueHandler(event){
-    let data = event.target.parentElement.dataset;
+    let parent = event.target.parentElement;
+
+    let data = {
+        title: parent.children[0].textContent,
+        author: parent.children[1].textContent,
+        date: parent.children[2].textContent,
+        content: parent.children[3].innerHTML
+    }
     return data;
 }
 
