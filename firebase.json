@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "site": "cse134-hw5-yitian",
+    "site": "yitian-w",
     "public": "public",
     "ignore": [
       "firebase.json",
